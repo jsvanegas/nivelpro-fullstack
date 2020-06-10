@@ -9,3 +9,4 @@ git push: Sube cambios a la rama remota
 git pull: Descarga cambios de la rama remota
 git log --oneline: Muestra los logs en linea sin mucho texto
 git branch -al: Muestra todas las ramas del repo
+git brach -D: elimina de forma forzada una rama especifica
