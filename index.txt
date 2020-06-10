@@ -7,3 +7,4 @@ git log: Muestra un log de los commits de la rama
 git remote -v : Consultar la lista de remotos
 git push: Sube cambios a la rama remota
 git pull: Descarga cambios de la rama remota
+git log --oneline: Muestra los logs en linea sin mucho texto
