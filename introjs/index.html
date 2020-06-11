@@ -1,4 +1,4 @@
-< !DOCTYPE html>
+<!DOCTYPE html>
     <html>
 
     <head>
@@ -121,9 +121,7 @@
             // Recorrer los estudios, validar si el estudio existe y si es así entonces muestra en consola el area.nivel
             persona.estudios.foreach(estudio => estudio && console.log(estudio.area.nivel))
             //STRING TEMPLATE
-            persona.estudios.foreach(estudio => estudio && console.log(´nivel: $ {
-                estudio.area.nivel
-            }´))
+            persona.estudios.foreach(estudio => estudio && console.log(`nivel: ${estudio.area.nivel}`))
             // NaN
             var x = 'abc';
             var y = 2;
