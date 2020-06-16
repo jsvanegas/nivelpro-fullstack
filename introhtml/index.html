@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <!-- Configuración de la página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción a HTML</title>
+
+    <style>
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        p {
+            color: darkgreen;
+        }
+
+        .p-padding {
+            padding: 20px;
+        }
+
+
+        #txt-nombre {
+            border: solid 1px #f00;
+            border-radius: 7px;
+        }
+
+
+        table tbody tr:nth-child(2n) {
+            background-color: darkgrey;
+        }
+
+        /* 
+        etiqueta
+        clase (.)
+        id (#)
+        */
+
+        h1 {
+            border: solid 3px #99F;
+            /* margin-bottom: 50px;
+            margin-top: 80px;
+            margin-right: 45px; */
+            margin: 80px 45px 50px 0;
+            padding: 30px 0 15px 40px;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Todo el contenido visual de la página     -->
+    <div>
+        <h1>Título principal</h1>
+        <h2>Subtítulo de la página</h2>
+
+        <div>
+            <p>
+                Lorem ipsum dolor sit amet <em>consectetur</em> adipisicing elit. At reprehenderit illum unde aliquam
+                perspiciatis
+                eaque harum eius? Velit fugit, facilis distinctio sunt blanditiis quae adipisci, <b>inventore</b> eius
+                autem
+                dolor quam.
+            </p>
+            <p class="p-padding">
+                HTML es un lenguage de <span style="color:#99F;">etiquetas</span> para la escritura de documentos web.
+            </p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th id="th-nombre">Nombre</th>
+                    <th id="th-apellido">Apellido</th>
+                    <th id="th-pais">País</th>
+                    <th id="th-ciudad">Ciudad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-index="0">
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr data-index="1">
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr data-index="2">
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr data-index="3">
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr>
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr>
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr>
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr>
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr>
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr>
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr>
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+                <tr>
+                    <td headers="th-nombre">Juan</td>
+                    <td headers="th-apellido">Vanegas</td>
+                    <td headers="th-pais">Colombia</td>
+                    <td headers="th-ciudad">Bogotá</td>
+                </tr>
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+
+
+        <div>
+            <p>Ejemplo de Formulario</p>
+
+
+            <div>
+
+                <label for="txt-nombre">Nombre:</label>
+                <input type="text" id="txt-nombre" />
+                <button>Agregar</button>
+                <input type="submit" value="Enviar">
+
+                <div>
+                    <input type="checkbox" id="rbtn-acepto">
+                    <label for="rbtn-acepto">Acepto</label>
+                </div>
+
+            </div>
+
+            <div>
+                <p>Más información presionando clic en el botón </p>
+                <a href="htttp://www.google.com">Más Información.</a>
+            </div>
+        </div>
+
+        <div>
+            <img src="milan.JPG" width="300" alt="Mapa de estaciones" longdesc="http://www.google.com" />
+        </div>
+
+    </div>
+
+</body>
+
+</html>
