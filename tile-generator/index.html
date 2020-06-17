@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tile Generator</title>
+</head>
+<body>
+    <div>
+        <div>
+            <!-- button#btn-debug tab -->
+            <button id="btn-debug">Test Debug</button>
+        </div>
+        <div>
+            <button class="btn-operation">+</button>
+            <button class="btn-operation">-</button>
+            <button class="btn-operation">*</button>
+            <button class="btn-operation">/</button>
+        </div>
+    </div>
+
+    <script>
+
+        document.getElementById('btn-debug').addEventListener('click', function() {
+            console.log(`I'm a Debug :D !`);
+            debugger;
+            console.info('Im Info');
+            console.error('Im error');
+            console.warn('Im warn');
+        });
+
+        const operationBtns = document.getElementsByClassName('btn-operation');
+        
+        for (let i = 0; i < operationBtns.length; i++) {
+            operationBtns.item(i).addEventListener('click', function(event){
+                console.log(event.currentTarget.innerText);
+            });
+        }
+        
+
+        const title = document.createElement('h1');
+        title.innerText = 'Tile Generator';
+        document.body.appendChild(title);
+
+
+        /*
+
+            - Obtener el valor del input
+            - Agregar evento click al boton Add Tiles
+            - Con base en el valor del input, crear tantos elementos como sea necesario
+            - Por cada elemento agregar un evento click
+            - Crear un arreglo con objetos que tengan titulo, y contador
+            - 
+
+
+        */
+
+
+    </script>
+
+</body>
+</html>

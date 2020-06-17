@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiles</title>
+    <style>
+
+        #wrapper { 
+            margin-top: 30px;
+        }
+
+        .tile {
+            display: inline-block;
+            width: 150px;
+            height: 70px;
+            margin: 5px;
+            border-radius: 4px;
+            background-color: darkgrey;
+            border: solid 1px #333;
+            font-size: 14px;
+        }
+
+        .counter {
+            display: block;
+            margin-top: 7px;
+            font-size: 12px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="txt-addTiles" value="4">
+        <button id="btn-addTiles">Add Tiles</button>
+        <button id="btn-reset">Reset</button>
+    </div>
+
+    <div id="wrapper">
+
+    </div>
+
+    <script>
+
+        const btnAddTiles = document.getElementById('btn-addTiles');
+        const wrapper = document.getElementById('wrapper');
+
+        btnAddTiles.addEventListener('click', addTile);
+
+
+        function addTile() {
+            let numTiles = document.getElementById('txt-addTiles').value;
+            if (isNaN(numTiles)) {
+                return;
+            }
+
+            let arrayTiles = [];
+            for (let i = 0; i < numTiles; i++) {
+                let elem = {
+                    "title": `Tile #${i + 1}`,
+                    "counter": 0
+                }
+                arrayTiles.push(elem);
+
+
+                const tile = createElement('div');
+                tile.classList.add('tile');
+
+                const tileName = createElement('span');
+                tileName.innerText = elem.title;
+
+                const tileCounter = createElement('span');
+                tileCounter.innerText = elem.counter;
+                tileCounter.classList.add('counter');
+
+                tile.addEventListener('click', onTileClick);
+
+                tile.appendChild(tileName);
+                tile.appendChild(tileCounter);
+
+                wrapper.appendChild(tile);
+            }
+            console.log(arrayTiles);
+        };
+
+        function createElement(elem) {
+            return document.createElement(elem);
+        }
+
+        function onTileClick(event) {
+            console.log('Tile clicked');
+            let elemCounter = event.currentTarget.getElementsByClassName('counter').item(0);
+            let counterValue = parseInt(elemCounter.innerText);
+            elemCounter.innerText = ++counterValue;
+        }
+
+    </script>
+
+</body>
+
+</html>
