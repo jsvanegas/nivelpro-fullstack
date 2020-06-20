@@ -5,14 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Tiles</title>
     <style>
-
-        #wrapper { 
+        #wrapper {
             margin-top: 30px;
         }
-
+        
         .tile {
             width: 150px;
             height: 70px;
@@ -20,11 +19,29 @@
             border-radius: 4px;
             font-size: 14px;
         }
-
-        .counter {
+        
+        .tile-div {
             display: block;
             margin-top: 7px;
             font-size: 12px;
+        }
+
+        .counter {
+            font-style: oblique;
+        }
+
+        .tile-trash,
+        .tile-trash:focus {
+            background-image: url("./icons/trash.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+            position: absolute;
+            right: 10px;
+            width: 16px;
+            height: 16px;
+            border: none;
+            outline: none;
         }
 
     </style>
@@ -34,7 +51,7 @@
 
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-                <h1>Tile Generator</h1>
+            <h1>Tile Generator 1</h1>
         </nav>
 
         <div class="container">
@@ -51,18 +68,19 @@
 
         </div>
 
-        
-
     </div>
 
 
     <script>
-
         const btnAddTiles = document.getElementById('btn-addTiles');
         const wrapper = document.getElementById('wrapper');
+        const btnReset = document.getElementById('btn-reset');
+        var generalCounter = 0;
 
         btnAddTiles.addEventListener('click', addTile);
+        btnReset.addEventListener('click', reset);
 
+        var arrayTiles = [];
 
         function addTile() {
             let numTiles = document.getElementById('txt-addTiles').value;
@@ -70,14 +88,9 @@
                 return;
             }
 
-            let arrayTiles = [];
+           
             for (let i = 0; i < numTiles; i++) {
-                let elem = {
-                    "title": `Tile #${i + 1}`,
-                    "counter": 0
-                }
-                arrayTiles.push(elem);
-
+                generalCounter++;
 
                 const tile = createElement('div');
                 tile.classList.add('tile');
@@ -85,22 +98,54 @@
                 tile.classList.add('alert-primary');
                 tile.classList.add('m-1');
 
+                const tileDivName = createElement('div');
+                tileDivName.classList.add('tile-div-name');
+
                 const tileName = createElement('span');
-                tileName.innerText = elem.title;
+                tileName.innerText = "Tile #";
+
+                const tileNumber = createElement('span');
+                tileNumber.innerText = generalCounter;
+                tileNumber.classList.add('tile-number');
+
+                tileDivName.appendChild(tileName);
+                tileDivName.appendChild(tileNumber);
+
+                const tileDiv = createElement('div');
+                tileDiv.classList.add('tile-div');
+
+                const txtCounter = createElement('span');
+                txtCounter.innerText = "# Clicks: ";
+                txtCounter.classList.add('counter');
 
                 const tileCounter = createElement('span');
-                tileCounter.innerText = elem.counter;
+                tileCounter.innerText = 0;
                 tileCounter.classList.add('counter');
 
+                const btnTrash = createElement('button');
+                btnTrash.setAttribute('onclick', "`${deleteTile(event)}`");
+                btnTrash.classList.add('tile-trash');
+
+                tileDiv.appendChild(txtCounter);
+                tileDiv.appendChild(tileCounter);
+                tileDiv.appendChild(btnTrash);
+
+                tile.appendChild(tileDivName);
+                tile.appendChild(tileDiv); 
+
                 tile.addEventListener('click', onTileClick);
-
-                tile.appendChild(tileName);
-                tile.appendChild(tileCounter);
-
                 wrapper.appendChild(tile);
+                arrayTiles.push(tile);
+
             }
-            console.log(arrayTiles);
-        };
+
+        }
+
+        function reset() {
+            wrapper.innerHTML = "";
+            arrayTiles = [];
+            generalCounter = 0;
+        }
 
         function createElement(elem) {
             return document.createElement(elem);
@@ -108,19 +153,34 @@
 
         function onTileClick(event) {
             console.log('Tile clicked');
-            let elemCounter = event.currentTarget.getElementsByClassName('counter').item(0);
+            let elemCounter = event.currentTarget.getElementsByClassName('counter').item(1);
             let counterValue = parseInt(elemCounter.innerText);
             elemCounter.innerText = ++counterValue;
+        }
+
+        function deleteTile(event){
+            let position = event.path[2].getElementsByClassName('tile-number').item(0).innerText;
+            console.log("Tile Delete " + position + ": " + event.path[2]);
+            arrayTiles.splice(position-1,1);
+            generalCounter--;
+            rerender();
+        }
+
+        function rerender(){
+            wrapper.innerHTML = "";
+            arrayTiles.forEach((tile, i) => {
+                tile.getElementsByClassName('tile-number').item(0).innerHTML=i+1;
+                wrapper.appendChild(tile);
+            });
         }
 
         /*
             Tarea:
 
-            Implementar botón Reset: Limpiar la lista de tiles
-            Implementar un contador único, para que los tiles se generen con un título consecutivo.
-            El botón eliminar (icono) dentro de cada tile, para eliminar el elemento y actuaizar los tiles siguientes.
+            OK => Implementar botón Reset: Limpiar la lista de tiles
+            OK => Implementar un contador único, para que los tiles se generen con un título consecutivo.
+            OK => El botón eliminar (icono) dentro de cada tile, para eliminar el elemento y actuaizar los tiles siguientes.
         */
-
     </script>
 
     <!-- Scripts de bootstrap -->
