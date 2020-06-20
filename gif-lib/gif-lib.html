@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gif Lib</title>
+</head>
+<body>
+
+    <div>
+        <div>
+            <select name="cmb-num-gifs" id="cmb-num-gif">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+            <input type="text" id="txt-query">
+            <button id="btn-search">Search</button>
+        </div>
+        <div id="gif-list"></div>
+
+    </div>
+
+    <script>
+        const options = document.getElementById('cmb-num-gif');
+        const btnSearch = document.getElementById('btn-search');
+        const txtQuery = document.getElementById('txt-query');
+        const gifList = document.getElementById('gif-list');
+
+        btnSearch.addEventListener('click',search);
+
+        function search(){
+            const params = {
+                q: txtQuery.value,
+                limit: options.value,
+                offset: 0,
+                rating: 'G',
+                lang: 'en'
+            };
+            const queryParams = parseParams(params);
+            const apiKey = 'c2Luvj3Fj1AMKthRRRuJVmkuyCe2HAIg';
+            const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&${queryParams}`;
+        
+            fetch(url)
+        .then(onSearchComplete)
+        .catch(handleError);
+
+        }
+
+        function parseParams(params) {
+            let queryString = '';
+            for(let key in params) {
+                queryString += `${key}=${params[key]}&`
+            }
+            return queryString.substring(0, queryString.length -2);
+        }
+
+        function onSearchComplete(response){
+            response.json()
+            .then(data => {
+                renderGifs(data);
+            });
+        }
+
+        function handleError(err){
+            console.error(err);
+        }
+
+        function renderGifs(data){
+            gifList.innerHTML = "";
+            data.data.forEach(gif => {
+                const img = document.createElement('img');
+                img.setAttribute('src', gif.images.downsized.url);
+                gifList.appendChild(img);
+            });
+        }
+
+        // guardar favoritos
+        // guardar algunos que no se borren 
+        // otras funcionalidades
+
+        
+        
+
+
+
+    </script>
+    
+</body>
+</html>
