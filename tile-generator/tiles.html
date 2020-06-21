@@ -51,7 +51,7 @@
 
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-            <h1>Tile Generator 1</h1>
+            <h1>Tile Generator</h1>
         </nav>
 
         <div class="container">
@@ -163,10 +163,10 @@
             console.log("Tile Delete " + position + ": " + event.path[2]);
             arrayTiles.splice(position-1,1);
             generalCounter--;
-            rerender();
+            renderWrapper();
         }
 
-        function rerender(){
+        function renderWrapper(){
             wrapper.innerHTML = "";
             arrayTiles.forEach((tile, i) => {
                 tile.getElementsByClassName('tile-number').item(0).innerHTML=i+1;

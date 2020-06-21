@@ -1,24 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Gif Lib</title>
+    <style>
+
+        .gif-non-favorite,
+        .gif-non-favorite:focus {
+            background-image: url("./icons/star.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+            position: absolute;
+            right: 10px;
+            width: 16px;
+            height: 16px;
+            border: none;
+            outline: none;
+        }
+
+        .gif-favorite,
+        .gif-favorite:focus {
+            background-image: url("./icons/star-fill.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+            position: absolute;
+            right: 10px;
+            width: 16px;
+            height: 16px;
+            border: none;
+            outline: none;
+        }
+
+    </style>
 </head>
+
 <body>
 
     <div>
-        <div>
-            <select name="cmb-num-gifs" id="cmb-num-gif">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-            <input type="text" id="txt-query">
-            <button id="btn-search">Search</button>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+            <h1>Gif Lib</h1>
+        </nav>
+        <div class="container">
+            <div class="form-inline">
+                <select name="cmb-num-gifs" id="cmb-num-gif" class="custom-select mr-sm-2">
+                    <option value="6">6</option>
+                    <option value="12">12</option>
+                    <option value="18">18</option>
+                    <option value="24">24</option>
+                </select>
+                <input class="form-control mr-1" type="text" id="txt-query">
+                <button id="btn-search" class="btn btn-info">Search</button>
+            </div>
+            <div id="gif-list" class="row" style="margin-top: 30px;">
+
+            </div>
+            <hr>
+            <div>
+                <h2>Favorites</h2>
+
+                <div id="gif-favorites" class="row" style="margin-top: 30px;">
+
+                    
+
+                </div>
+
+            </div>
         </div>
-        <div id="gif-list"></div>
+
 
     </div>
 
@@ -27,10 +83,13 @@
         const btnSearch = document.getElementById('btn-search');
         const txtQuery = document.getElementById('txt-query');
         const gifList = document.getElementById('gif-list');
+        const gifFavorites = document.getElementById('gif-favorites');
+        var arrayGifFavorites = [];
+        var arrayGifSearch = [];
 
-        btnSearch.addEventListener('click',search);
+        btnSearch.addEventListener('click', search);
 
-        function search(){
+        function search() {
             const params = {
                 q: txtQuery.value,
                 limit: options.value,
@@ -41,51 +100,133 @@
             const queryParams = parseParams(params);
             const apiKey = 'c2Luvj3Fj1AMKthRRRuJVmkuyCe2HAIg';
             const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&${queryParams}`;
-        
+
             fetch(url)
-        .then(onSearchComplete)
-        .catch(handleError);
+                .then(onSearchComplete)
+                .catch(handleError);
 
         }
 
         function parseParams(params) {
             let queryString = '';
-            for(let key in params) {
+            for (let key in params) {
                 queryString += `${key}=${params[key]}&`
             }
-            return queryString.substring(0, queryString.length -2);
+            return queryString.substring(0, queryString.length - 2);
         }
 
-        function onSearchComplete(response){
+        function onSearchComplete(response) {
             response.json()
-            .then(data => {
-                renderGifs(data);
-            });
+                .then(data => {
+                    arrayGifSearch = [];
+                    data.data.forEach(gif => {
+                        let title =  gif.title;
+                        let url = gif.images.downsized.url;
+                        let item = {
+                            "url": url,
+                            "title" : title
+                        }
+                        arrayGifSearch.push(item);
+                    });
+                    
+                    renderGifs(arrayGifSearch, gifList);
+                });
         }
 
-        function handleError(err){
+        function handleError(err) {
             console.error(err);
         }
 
-        function renderGifs(data){
-            gifList.innerHTML = "";
-            data.data.forEach(gif => {
-                const img = document.createElement('img');
-                img.setAttribute('src', gif.images.downsized.url);
-                gifList.appendChild(img);
+        function renderGifs(arrayGif, container) {
+            container.innerHTML = "";
+
+            arrayGif.forEach(gif => {
+
+                const cardContainer = createElement('div');
+                cardContainer.classList.add('col-4');
+
+                const card = createElement('div');
+                card.classList.add('card');
+                card.setAttribute('style', 'width: 18rem;');
+
+                const img = createElement('img');
+                img.setAttribute('src', gif.url);
+                img.setAttribute('alt', gif.title);
+                img.classList.add('card-img-top');
+
+                const cardBody = createElement('div');
+                cardBody.classList.add('card-body');
+
+                const cardText = createElement('p');
+                cardText.classList.add('card-text');
+
+                const btnFavorite = createElement('button');
+                if(arrayGifFavorites.find(gifFav => gifFav.url == gif.url)){   
+                    btnFavorite.setAttribute('onclick', "`${removeFavorite(event)}`");
+                    btnFavorite.classList.add('gif-favorite');
+                }else{
+                    btnFavorite.setAttribute('onclick', "`${addFavorite(event)}`");
+                    btnFavorite.classList.add('gif-non-favorite');
+                }
+ 
+                cardText.innerText = "Title: " + gif.title;
+                cardText.appendChild(btnFavorite);
+                
+                cardBody.appendChild(cardText);
+
+                card.appendChild(img);
+                card.appendChild(cardBody);
+
+                cardContainer.appendChild(card);
+
+                container.appendChild(cardContainer);
             });
         }
+
+        function createElement(elem) {
+            return document.createElement(elem);
+        }
+
+        function addFavorite(event){
+           
+            let title = event.path[4].getElementsByClassName('card-img-top').item(0).alt;
+            let url = event.path[4].getElementsByClassName('card-img-top').item(0).src;
+            let favorite = {
+                "url": url,
+                "title" : title
+            }
+             arrayGifFavorites.push(favorite);
+             renderGifs(arrayGifSearch, gifList);
+             renderGifs(arrayGifFavorites, gifFavorites);
+            
+        }
+
+        function removeFavorite(event){
+            let title = event.path[4].getElementsByClassName('card-img-top').item(0).alt;
+            let url = event.path[4].getElementsByClassName('card-img-top').item(0).src;
+            let position = arrayGifFavorites.indexOf(arrayGifFavorites.find(gif => gif.url == url));
+             arrayGifFavorites.splice(position,1);
+             renderGifs(arrayGifSearch, gifList);
+             renderGifs(arrayGifFavorites, gifFavorites);
+        }
+
 
         // guardar favoritos
         // guardar algunos que no se borren 
         // otras funcionalidades
 
-        
-        
+
+
 
 
 
     </script>
-    
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
 </body>
+
 </html>
