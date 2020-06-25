@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ejercicios básicos de JS</title>
+</head>
+<body>
+
+	<h1></h1>
+
+
+
+	<script type="text/javascript">
+
+		// JS No es fuertemente tipado, tipos dinámicos
+		var x = 1; // int
+		var y = 'hola'; // string 'abc' = "abc" = `abc`
+
+
+		var z = true; // bool
+		var a = 5.6; // float
+
+
+		var arr = []; // Array
+		var obj = {}; // Object     -----    var obj = new Object();
+
+
+		/*
+
+		if ( 1 == '1' && 'a' !== 'b' || true && !true ) {
+			// ...
+		} else if () {
+			// ...
+		} else {
+			// ...
+		}
+
+
+		var resultado = 0;
+		if (cantidad > 0) {
+			resultado = cantidad * precio;
+		} else {
+			resultado = cantidadStock * precio;
+		}
+
+
+		resultado = ( cantidad > 0 ) ? cantidad * precio : cantidadStock * precio ;
+
+
+		var valor = 'x';
+		swtich(valor) {
+			case 'x':
+				// ...
+			break;
+			case 'y':
+				// ...
+			break;
+			default:
+				// ...
+			break;
+		}
+
+
+		for (var i = 0; i < 10; i++) {
+
+		}
+
+
+		function saludar(quien) {
+			console.log('Hola, '+quien);
+		}
+
+		var saludar = function(quien) {
+			console.log('Hola, '+quien);
+		}
+
+		*/
+
+		// Function Flecha | Arrow function
+		var saludar = (quien) => console.log('Hola, '+quien);
+
+		saludar('Eliana');
+
+		
+
+		// JSON: JavaScript Object Notation
+		var persona = {
+			// llave: valor
+			nombre: 'Eliana',
+			apellido: 'Torres',
+			empresa: 'Cadena',
+			intereses: ['estudiar', 'leer mucho', 'estudiar más'],
+			madre: {
+				nombre: 'Maria',
+				apellido: 'Gomez'
+			},
+			estudios: [
+				{
+					area: {
+						nombre: 'Basico',
+						nivel: 'bachiller academico',	
+					},
+					institucion: 'Colegio no se',
+					graduacion: 2000
+				}, 
+				{
+					area: {
+						nombre: 'Sistmas',
+						nivel: 'Ing Sistemas',
+					},
+					institucion: 'UNAD',
+					graduacion: 2005
+				}
+				
+			]
+		};
+
+		persona.estudios[6] = {
+			area: {
+				nombre: 'Sistmas',
+				nivel: 'Maestria',
+			},
+			institucion: 'Javeriana',
+			graduacion: 2007
+		}
+
+
+
+				
+	</script>
+</body>
+</html>
