@@ -159,6 +159,7 @@
         }
 
         function deleteTile(event){
+            event.stopPropagation();
             let position = event.path[2].getElementsByClassName('tile-number').item(0).innerText;
             console.log("Tile Delete " + position + ": " + event.path[2]);
             arrayTiles.splice(position-1,1);
