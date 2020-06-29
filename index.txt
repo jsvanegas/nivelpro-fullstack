@@ -11,3 +11,4 @@ git log --oneline: Muestra los logs en linea sin mucho texto
 git checkout : Descartar cambios realizados o pasarse a otra rama
 git branch -al: Muestra todas las ramas del repo
 git brach -D: elimina de forma forzada una rama especifica
+git commit -am : agrega(git add) y adiciona el comentario
