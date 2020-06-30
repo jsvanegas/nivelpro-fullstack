@@ -28,7 +28,6 @@ function Wrapper() {
   );
 }
 
-
 function Tile(props) {
   return (
     <div>
@@ -50,10 +49,6 @@ function Buttons(props) {
     </div>
   );
 }
-
-
-
-
 
 function App() {
   return (
