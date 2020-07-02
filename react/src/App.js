@@ -1,79 +1,91 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import BooksApps from './components/books-app/BooksApp';
 
-import List from './components/list/List';
+function Wrapper() {
 
-const booksList = [
-  {
-    title: 'Por quien doblan las campanas',
-    author: 'Ernest hemingway',
-    lang: 'ES',
-    price: '45000',
-    currency: 'COP'
-  },
-  {
-    title: 'El hombre duplicado',
-    author: 'Jose Saramago',
-    lang: 'ES',
-    price: '30000',
-    currency: 'COP'
-  },
-  {
-    title: 'Angeles y Demonios',
-    author: 'Dan Brown',
-    lang: 'ES',
-    price: '50000',
-    currency: 'COP'
-  },
-  {
-    title: 'Crime and Punishment',
-    author: 'Fiodor Dostojewski',
-    lang: 'EN',
-    price: '40',
-    currency: 'USD'
-  },
-  {
-    title: 'The Shinning',
-    author: 'Stephen King',
-    lang: 'EN',
-    price: '1500000',
-    currency: 'USD'
-  }
-];
+  const [tiles, setTiles] = useState([{ title: 1, clicked: 0 }]);
 
-
-function App() {
-
-  // let lang = '*';
-  const [lang, setLang] = useState('*');
-  const [price, setPrice] = useState('A');
-
-  const setLangFilter = (event) => {
-    setLang(event.currentTarget.value);
-  };
-
-  const setPriceFilter = (event) => {
-    setPrice(event.currentTarget.value);
+  const addTilesToArray = (num) => {
+    const newTiles = [...tiles];
+    for (let i = 0; i < num; i++) {
+      newTiles.push({ title: newTiles.length + 1, clicked: 0 });
+    }
+    setTiles(newTiles);
   }
 
   return (
-    <div className="App container">
-      <div>
-        <select onChange={setLangFilter}>
-          <option value="*">All</option>
-          <option value="EN">EN</option>
-          <option value="ES">ES</option>
-        </select>
-        <select onChange={setPriceFilter}>
-          <option value="A">1 - 1000</option>
-          <option value="B">1001 - 20000</option>
-          <option value="C">20001 - 100000</option>
-        </select>
-      </div>
-      <List books={booksList} lang={lang} price={price}  />
+    <div>
+      <Buttons onAdd={addTilesToArray} />
+      <div>Total Clicks: </div>
+      {
+        tiles.map(tile => {
+          return (<Tile title={tile.title} />)
+        })
+      }
+    </div>
 
+  );
+}
+
+function Tile(props) {
+  return (
+    <div>
+      <p>Tile #{props.title}</p>
+    </div>
+  );
+}
+
+function Buttons(props) {
+
+  const addTiles = () => {
+    props.onAdd(5);
+  }
+
+  return (
+    <div>
+      <input type="text" />
+      <button onClick={addTiles}>Add</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <Wrapper />
     </div>
   );
 }
 
 export default App;
+
+
+/*
+
+ - 1er Componente: Input + buttons
+ - 2do Componente: Tile (div > titulo + contador) + evento click + Eliminar
+ - 3er Componente: Contenedor de Tiles
+
+
+
+
+*/
+
+
+
+// const Persona = (props) => {
+
+//   const [edad, setEdad] = useState(31);
+
+//   const aumentar = () => {
+//     setEdad(edad+1);
+//   }
+
+//   return (
+//     <div>
+//       <h1>Hola soy {props.nombre}</h1>
+//       <p>Edad: <span onClick={aumentar}>{edad}</span></p>
+//     </div>
+//   );
+// }
