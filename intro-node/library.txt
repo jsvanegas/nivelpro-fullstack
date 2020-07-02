@@ -1,0 +1,1 @@
+[{"author":"Alfredo Molano"},{"author":"Gabo","books":[{"id":1,"title":"Cien años de soledad"},{"id":2,"title":"Crónica de una muerte anunciada"},{"id":3,"title":"La Hojarasca"}]},{"author":"Hemingway"},{"author":"Mario Mendoza"}]
