@@ -1,0 +1,1 @@
+[{"author":"Gabriel Garcia Marquez","books":[{"id":1,"title":"el coronel no tiene quien le escriba"}]},{"author":"Alfredo Molano","books":[{"id":2,"title":"cien años de soledad"},{"id":3,"title":"la hojarasca"}]},{"author":"Oscar Medina"}]

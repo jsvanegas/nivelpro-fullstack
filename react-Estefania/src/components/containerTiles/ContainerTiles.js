@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tile from '../tile/Tile';
 
 var counter = 0;
-var arrayTiles = [];
+
+const [arrayTiles, setArrayTiles] = useState([]);
+
+    const setArrayTilesCreate = (tile) => {
+        setArrayTiles(arrayTiles => [...arrayTiles, tile]);
+      };
 
 function ContainerTiles(props){
-
-    const [arrayTiles, setArrayTiles] = useState('[]');
-
-    const setLangFilter = (event) => {
-        setArrayTiles(event.currentTarget.value);
-      };
 
     generatorTiles(props.numTiles);
 
@@ -26,8 +25,8 @@ function ContainerTiles(props){
 function generatorTiles(numTiles){
     
     for (let i = 0; i < numTiles; i++) {
-        counter++;
-        arrayTiles.push({generalCounter:counter, counterClicks:0 });
+        counter++; //{generalCounter:counter, counterClicks:0 }
+        setArrayTilesCreate(counter);
     }
 }
 
