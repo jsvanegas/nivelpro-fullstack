@@ -80,7 +80,7 @@ yargs.command(
             },
         },
         handler: function(argv) {
-            fileManager.removeBook(argv.author, argv.title);
+            fileManager.removeBook(argv.author, argv.book);
         }
     }
 );

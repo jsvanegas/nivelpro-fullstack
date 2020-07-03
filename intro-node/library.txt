@@ -1,1 +1,1 @@
-[{"author":"Alfredo Molano"},{"author":"Gabo","books":[{"id":1,"title":"Cien años de soledad"},{"id":2,"title":"Crónica de una muerte anunciada"},{"id":3,"title":"La Hojarasca"}]},{"author":"Hemingway"},{"author":"Mario Mendoza"}]
+[{"author":"Alfredo Molano"},{"author":"Gabo","books":[{"id":1,"title":"Cien años de soledad"},{"id":3,"title":"La Hojarasca"}]},{"author":"Hemingway","books":[{"id":1,"title":"Adios%20a%20las%20armas"},{"id":2,"title":"Por quien doblan las campanas"},{"id":3,"title":"El viejo y el mar"}]},{"author":"Mario Mendoza"}]

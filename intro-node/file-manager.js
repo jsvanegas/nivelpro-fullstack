@@ -17,27 +17,44 @@ function addBook(authorIndex, bookName) {
     if (!Array.isArray(author.books)) {
         author.books = [];
     }
-    author.books.push({id: author.books.length+1, title: bookName});
+    const newBook = { id: author.books.length + 1, title: bookName };
+    author.books.push(newBook);
     fs.writeFileSync(path, JSON.stringify(lib));
+    return newBook;
 }
 
 function listBooks(authorIndex) {
     const lib = readFile();
     const author = lib[authorIndex];
-    console.log(`************\n\tBooks from ${author.author}\n`)
-    if (!Array.isArray(author.books)) {
-        console.log('\t0 Books');
-        return;
-    }
-    author.books.forEach( (book, index) => {
-        console.log(`\t${index + 1}. ${book.title}`);
-    });
+    // console.log(`************\n\tBooks from ${author.author}\n`)
+    // if (!Array.isArray(author.books)) {
+    //     console.log('\t0 Books');
+    //     return;
+    // }
+    // author.books.forEach((book, index) => {
+    //     console.log(`\t${index + 1}. ${book.title}`);
+    // });
+    // API
+    return (author && author.books) ? author.books : [];
 }
 
 function removeBook(authorIndex, bookIndex) {
     let list = readFile();
-    // Ejercicio :D 
+    let author = list[authorIndex];
 
+    if (!Array.isArray(author.books)) {
+        console.log('There are no books for this author');
+        return;
+    }
+
+    if (!author.books[bookIndex]) {
+        console.log('There was an error with the book index');
+        return;
+    }
+
+    const removedBook = author.books.splice(bookIndex, 1);
+    fs.writeFileSync(path, JSON.stringify(list));
+    console.log(`The Book No. ${removedBook[0].id} - ${removedBook[0].title} was removed`);
 }
 
 
@@ -56,7 +73,8 @@ module.exports = {
     addAuthor,
     readFile,
     addBook,
-    listBooks
+    listBooks,
+    removeBook
 };
 
 
