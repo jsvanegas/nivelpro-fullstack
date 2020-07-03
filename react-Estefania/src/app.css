@@ -1,0 +1,35 @@
+#wrapper {
+    margin-top: 30px;
+}
+
+.tile {
+    width: 150px;
+    height: 70px;
+    margin: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.tile-div {
+    display: block;
+    margin-top: 7px;
+    font-size: 12px;
+}
+
+.counter {
+    font-style: oblique;
+}
+
+.tile-trash,
+.tile-trash:focus {
+    background-image: url("./assets/icons/trash.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    position: absolute;
+    right: 10px;
+    width: 16px;
+    height: 16px;
+    border: none;
+    outline: none;
+}

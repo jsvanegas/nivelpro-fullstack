@@ -6,7 +6,14 @@ function App() {
 
 
   return (
-    <ContainerTiles numTiles= '4' />
+    <div>
+      <nav className='navbar navbar-expand-lg navbar-light bg-light mb-4'>
+              <h1>Tile Generator</h1>
+      </nav>
+
+      <ContainerTiles />
+
+    </div>
   );
 }
 

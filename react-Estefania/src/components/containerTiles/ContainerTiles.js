@@ -1,35 +1,39 @@
 import React, { useState } from 'react';
 import Tile from '../tile/Tile';
-
-var counter = 0;
-
-const [arrayTiles, setArrayTiles] = useState([]);
-
-    const setArrayTilesCreate = (tile) => {
-        setArrayTiles(arrayTiles => [...arrayTiles, tile]);
-      };
+import Buttons from '../buttons/Buttons';
 
 function ContainerTiles(props){
 
-    generatorTiles(props.numTiles);
+    const [tiles, setTiles] = useState([]);
 
-    return(
-        <div className='d-flex flex-row flex-wrap'>     
-            {
-                arrayTiles.map(tile => <Tile generalCounter = {tile.generalCounter} /> )
-            }
-        </div>
-    );
-}
-
-function generatorTiles(numTiles){
-    
-    for (let i = 0; i < numTiles; i++) {
-        counter++; //{generalCounter:counter, counterClicks:0 }
-        setArrayTilesCreate(counter);
+  const addTilesToArray = (num) => {
+    const newTiles = [...tiles];
+    for (let i = 0; i < num; i++) {
+      newTiles.push({ title: newTiles.length + 1, clicked: 0 });
     }
-}
+    setTiles(newTiles);
+  };
 
+  const addClick = (index) => {
+    const newTiles = [...tiles];
+    newTiles[index];
+  };
+
+  return (
+    <div className='container'>
+      <Buttons onAdd={addTilesToArray} />
+      <div>Total Clicks: </div>
+      <div className='d-flex flex-row flex-wrap'>
+      {
+        tiles.map(tile => {
+          return (<Tile title={tile.title} />)
+        })
+      }
+      </div>
+    </div>
+
+  );
+}
 
 
 export default ContainerTiles;

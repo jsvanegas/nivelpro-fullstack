@@ -10,6 +10,11 @@
   "author": "estefania.otalvaro",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
     "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

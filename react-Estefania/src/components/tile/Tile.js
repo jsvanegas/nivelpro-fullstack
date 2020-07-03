@@ -14,7 +14,7 @@ function Tile(props){
                     Tile #
                 </span>
                 <span className='tile-number'>
-                    {props.generalCounter}
+                    {props.title}
                 </span>
             </div>
             <div className='tile-div'>

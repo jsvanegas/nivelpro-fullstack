@@ -32,26 +32,34 @@ function addBook(authorIndex, bookName){
     }
 
     //author = {author.author, author.books.push({id: 1, title: bookName})};
-    author.books.push({id: author.books.length+1, title: bookName});
+    const newBook = {id: author.books.length+1, title: bookName};
+    author.books.push(newBook);
     fs.writeFileSync(path,JSON.stringify(lib));
 
     //console.log(JSON.stringify(lib));
     console.log('Added book ' , bookName);
+    return newBook;
 }
 
 
 function listBooks(authorIndex){
     const lib = readFile();
     const author = lib[authorIndex];
-    if(!Array.isArray(author.books)){
-       console.log('El author ', author.author, ' have 0 Books');
-    }else{
-        console.log('******************\n\t Book\'s ', author.author, ': \n');
-        for(let i = 0; i<author.books.length; i++){
-            console.log(`\t ${i+1} - ${author.books[i].title}`);
-        }
+    // if(!Array.isArray(author.books)){
+    //    console.log('El author ', author.author, ' have 0 Books');
+    //    return [];
+    // }else{
+    //     console.log('******************\n\t Book\'s ', author.author, ': \n');
+    //     for(let i = 0; i<author.books.length; i++){
+    //         console.log(`\t ${i+1} - ${author.books[i].title}`);
+    //     }
+
+    //     return author.books;
        
-    } 
+    // } 
+
+    return (author && author.books) ? author.books : [];
+    
 
 }
 
@@ -61,13 +69,16 @@ function removeBook(authorIndex, bookIndex){
 
     if(!Array.isArray(author.books)){
         console.log('El author no tiene libros');
-    }else if(!author.books[bookIndex]){
-        console.log('No existe el libro');    
-    }else {
-        console.log('Removed book ', author.books[bookIndex].title);
-        author.books.splice(bookIndex, 1);
-        fs.writeFileSync(path,JSON.stringify(lib));
+        return;
     }
+    if(!author.books[bookIndex]){
+        console.log('No existe el libro');    
+        return;
+    }
+      
+    const removedBook = author.books.splice(bookIndex, 1);
+    fs.writeFileSync(path,JSON.stringify(lib));
+    console.log(`Removed book ${removedBook[0].id} - ${removedBook[0].title}`);
 
 }
 
