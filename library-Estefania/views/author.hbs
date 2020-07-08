@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliografía de {{author.name}}</title>
+</head>
+<body>
+
+    <h1>Biografía de {{author.name}}</h1>
+
+    <table>
+        <tr>
+            <th id="thTitle">
+                Título
+            </th>
+            <th id="thRemove">
+                Eliminar
+            </th>
+        </tr>
+        {{#each author.books}}
+        <tr>
+            <td headers="thTitle">
+                {{this.title}}
+            </td>
+
+            <td headers="thRemove">
+                <a href="/remove?author ={{../author._id}}&title={{this.title}}">Eliminar</a>
+            </td>
+        </tr>
+
+        {{/each}}
+    </table>
+
+
+
+
+
+
+
+    <h2>Agregar libros</h2>
+    <div>
+        <form action="/add-book" method="POST">
+        <div>
+            <label for="txt-title">title</label>
+            <input type="text" id="txt-title">
+        </div>
+        <div>
+            <label for="txt-year">Year</label>
+            <input type="text" id="txt-year">
+        </div>
+        <div>
+            <label for="txt-lang">Lang</label>
+            <input type="text" id="txt-lang">
+        </div>
+        <div>
+            <label for="txt-tags">Tags</label>
+            <input type="text" id="txt-tags">
+        </div>
+        <div>
+            <label for="txt-pages">Pages</label>
+            <input type="text" id="txt-pages">
+        </div>
+            
+        <input type="hidden" name="author" value="{{author._id}}">
+
+            <input type="submit" value="Agregar Libro">
+        </form>
+    </div>
+    
+</body>
+</html>
