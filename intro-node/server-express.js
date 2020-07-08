@@ -38,7 +38,7 @@ app.get('/authors', (req, res) => {
                 console.log(parseError);
                 res.status(500).send({ error: parseError.message });
                 return;
-            }   
+            }
 
             res.status(200).send(result);
 
