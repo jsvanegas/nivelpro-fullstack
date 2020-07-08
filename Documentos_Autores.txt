@@ -1,0 +1,217 @@
+/* 1 */
+{
+    "_id" : ObjectId("5f025549bec9902124c22de0"),
+    "name" : "Ernest Hemingway",
+    "born" : ISODate("1899-07-21T05:00:00.000Z"),
+    "died" : ISODate("1961-07-02T05:00:00.000Z"),
+    "nobel" : 1954,
+    "languages" : [ 
+        "Inglés", 
+        "Español"
+    ],
+    "countries" : [ 
+        "USA", 
+        "Spain", 
+        "Cuba", 
+        "France"
+    ],
+    "books" : [ 
+        {
+            "title" : "El Viejo y el Mar",
+            "publicationYear" : 1953,
+            "lang" : "es",
+            "tags" : [ 
+                "Mar", 
+                "Novela Moderna"
+            ],
+            "pages" : 96
+        }, 
+        {
+            "title" : "Por quién doblan las campanas",
+            "publicationYear" : 1950,
+            "lang" : "es",
+            "tags" : [ 
+                "Guerra Civíl", 
+                "España", 
+                "Europa"
+            ],
+            "pages" : 494
+        }, 
+        {
+            "title" : "Fiesta",
+            "publicationYear" : 1926,
+            "lang" : "es",
+            "tags" : [ 
+                "España", 
+                "Valencia", 
+                "Toros"
+            ],
+            "pages" : 359
+        }, 
+        {
+            "title" : "Adiós a las Armas",
+            "publicationYear" : 1929,
+            "lang" : "es",
+            "tags" : [ 
+                "Guerra Mundial", 
+                "Europa", 
+                "WWI"
+            ],
+            "pages" : 318
+        }
+    ]
+}
+
+/* 2 */
+{
+    "_id" : ObjectId("5f025564bec9902124c22de1"),
+    "name" : "José Saramago",
+    "born" : ISODate("1922-11-16T05:00:00.000Z"),
+    "died" : ISODate("2010-06-18T05:00:00.000Z"),
+    "nobel" : 1998,
+    "languages" : [ 
+        "Portugués", 
+        "Español"
+    ],
+    "countries" : [ 
+        "Portugal", 
+        "España", 
+        "México"
+    ],
+    "books" : [ 
+        {
+            "title" : "Ensayo sobre la Ceguera",
+            "publicationYear" : 1995,
+            "lang" : "es",
+            "tags" : [ 
+                "Ceguera", 
+                "Pandemía"
+            ],
+            "pages" : 96
+        }, 
+        {
+            "title" : "El Evangelio según Jesucristo",
+            "publicationYear" : 1991,
+            "lang" : "es",
+            "tags" : [ 
+                "Jesucristo", 
+                "Ensayo", 
+                "Novela"
+            ],
+            "pages" : 494
+        }, 
+        {
+            "title" : "La Caverna",
+            "publicationYear" : 2000,
+            "lang" : "es",
+            "tags" : [ 
+                "Alfarero", 
+                "Reflexión"
+            ],
+            "pages" : 359
+        }, 
+        {
+            "title" : "Las Intermitencias de la Muerte",
+            "publicationYear" : 2005,
+            "lang" : "es",
+            "tags" : [ 
+                "Muerte", 
+                "Novela Romántica"
+            ],
+            "pages" : 318
+        }, 
+        {
+            "title" : "Caín",
+            "publicationYear" : 2009,
+            "lang" : "es",
+            "tags" : [ 
+                "Novela Bíblica", 
+                "Caín y Abel"
+            ],
+            "pages" : 318
+        }, 
+        {
+            "title" : "El Hombre Duplicado",
+            "publicationYear" : 2002,
+            "lang" : "es",
+            "pages" : 318
+        }
+    ]
+}
+
+/* 3 */
+{
+    "_id" : ObjectId("5f025572bec9902124c22de2"),
+    "name" : "Gabriel Garcia Márquez",
+    "born" : ISODate("1927-03-06T05:00:00.000Z"),
+    "died" : ISODate("2014-04-17T05:00:00.000Z"),
+    "nobel" : 1982,
+    "languages" : [ 
+        "Español"
+    ],
+    "countries" : [ 
+        "Colombia", 
+        "México"
+    ],
+    "books" : [ 
+        {
+            "title" : "Cien años de Soledad",
+            "publicationYear" : 1967,
+            "lang" : "es",
+            "tags" : [ 
+                "Macondo", 
+                "Colombia"
+            ],
+            "pages" : 1400
+        }, 
+        {
+            "title" : "Crónica de una muerte anunciada",
+            "publicationYear" : 1981,
+            "lang" : "es",
+            "tags" : [ 
+                "Crimen", 
+                "Tradición", 
+                "Colombia"
+            ],
+            "pages" : 494
+        }, 
+        {
+            "title" : "El coronel no tiene quien le escriba ",
+            "publicationYear" : 1961,
+            "lang" : "es",
+            "pages" : 250
+        }
+    ]
+}
+
+/* 4 */
+{
+    "_id" : ObjectId("5f025580bec9902124c22de3"),
+    "name" : "Fiódor Dostoyevski",
+    "born" : ISODate("1821-11-30T05:00:00.000Z"),
+    "died" : ISODate("1881-01-28T05:00:00.000Z"),
+    "languages" : [ 
+        "Ruso"
+    ],
+    "countries" : [ 
+        "Rusia"
+    ],
+    "books" : [ 
+        {
+            "title" : "Crimen y Castigo",
+            "publicationYear" : 1866,
+            "lang" : "es",
+            "tags" : [ 
+                "Crimen", 
+                "Novela Psicológica"
+            ],
+            "pages" : 1200
+        }, 
+        {
+            "title" : "Los Hermanos Karamasov",
+            "publicationYear" : 1880,
+            "lang" : "es",
+            "pages" : 2000
+        }
+    ]
+}

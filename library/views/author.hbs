@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bibliografía de {{author.name}}</title>
+</head>
+
+<body>
+
+  <h1>Bibliografía de {{author.name}}</h1>
+  <table>
+    <thead>
+      <tr>
+        <th id="thTitle">Título</th>
+        <th id="thYear">Año de Publicación</th>
+        <th id="thPages">No. Páginas</th>
+        <th id="thRemove">Remover</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each author.books}}
+      <tr>
+        <td headers="thTitle">{{this.title}}</td>
+        <td headers="thYear">{{this.publicationYear}}</td>
+        <td headers="thPages">{{this.pages}}</td>
+        <td headers="thRemove">
+          <a href="/remove?author={{../author._id}}&title={{this.title}}">Remover</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <div>
+    <h2>Agregar Libros</h2>
+    <div>
+
+      <form action="/add-book" method="POST">
+        <div>
+          <label for="txt-title">Nombre del Libro:</label>
+          <input type="text" id="txt-title" name="title" />
+        </div>
+
+        <div>
+          <label for="txt-year">Año de Publicación:</label>
+          <input type="text" id="txt-year" name="year" />
+        </div>
+
+        <div>
+          <label for="txt-lang">Idioma:</label>
+          <input type="text" id="txt-lang" name="lang" />
+        </div>
+
+        <div>
+          <label for="txt-tags">Tags:</label>
+          <input type="text" id="txt-tags" name="tags" />
+        </div>
+
+        <div>
+          <label for="txt-pages">Número de Páginas:</label>
+          <input type="text" id="txt-pages" name="pages" />
+        </div>
+
+        <input type="hidden" name="author" value="{{author._id}}">
+
+        <input type="submit" value="Agregar Libro">
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>
