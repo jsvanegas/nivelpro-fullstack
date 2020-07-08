@@ -10,17 +10,20 @@ app.use(bodyParser.json());
 app.engine('hbs', exphbs({extname: 'hbs', defaultLayout: null }));
 app.set('view engine', 'hbs');
 
+//Routes
 app.get('/index', renderIndex);
 app.get('/authors/:author_id', renderAuthor);
 app.post('/add-book', addBook);
 app.get('/remove', removeBook);
+app.get('/search', search);
+app.post('/search-authors', searchAuthors);
 
 var libDB = null;
 
 
 
 function renderIndex(req, res) {
-    console.log('renderIndex');
+    //console.log('renderIndex');
 
     libDb.collection('authors').find({},{projection: {name:1}}, (err, cursor) => {
         // TODO: Proyección de datos en la consulta
@@ -45,7 +48,7 @@ function renderIndex(req, res) {
 }
 
 function renderAuthor(req, res) {
-    console.log('renderAuthor');
+    //console.log('renderAuthor');
     const authorId = req.params.author_id;
 
     libDb.collection('authors').findOne({_id: new ObjectId(authorId)},(err, cursor) => {
@@ -81,9 +84,9 @@ function addBook(req, res){
                 handleError(reult, err);
                 return;
             }
-           
+            res.status(200).redirect('/authors/'+author);
         });
-        res.status(200).redirect('/author/'+author);
+        
     }
 
     function removeBook(req, res) {
@@ -96,11 +99,72 @@ function addBook(req, res){
                 handleError(reult, err);
                 return;
             }
-            
+            res.status(200).redirect('/authors/'+author);
         });
-        res.status(200).redirect('/author/'+author);
+       
 
     }
+
+function search(req, res) {
+    res.render('search');
+}
+
+function searchAuthors(req, res) {
+    //console.log("Search Authors");
+    const {name, nobel, dead, country } = req.body;
+    //console.log("nobel: " + nobel);
+    let isNobel = null;
+    let isDied = null;
+
+    if(nobel=="true"){
+        isNobel=true;
+    }
+    if(nobel=="false"){
+        isNobel=false;
+    }
+    if(dead=="true"){
+        isDied=true;
+    }
+    if(dead=="false"){
+        isDied=false;
+    }
+
+
+    const query = {
+        $and: [
+            // /.*Ern.*/i
+            {"name": new RegExp(name, 'i')},
+            {"nobel": {$exists: isNobel}},
+            {"died": {$exists: isDied}},
+            {"countries": {$in: [ new RegExp(country, 'i') ]}}
+        ]
+    };
+
+    const projection = {
+        projection: {name: 1, born: 1, died: 1, nobel: 1, countries: 1}
+    };
+
+    libDb.collection('authors').find(query,projection, (err, cursor) => {
+        // TODO: Proyección de datos en la consulta
+
+        if(err){
+            handleError(res, err);
+            return;
+        }
+        cursor.toArray((parseError, result) => {
+            if(err){
+                console.log(parseError);
+               handleError(result, parseError);
+                return;
+            }
+            res.render('search', {authors: result});
+    
+        });
+
+
+    });
+
+}
 
 
 function handleError(res, err){
@@ -140,10 +204,10 @@ app.listen(9090, () => {
     - Eliminar libros del autor
 
     /search Nueva Página - Tarea
-    - Buscar por coincidencias de nombre (input txt)
-    - que tengan un nobel (lista o radio)
-    - autores que han muerto (lista o radio)
-    - Buscar autores por Pais (input txt)
+    - OK Buscar por coincidencias de nombre (input txt)
+    - OK que tengan un nobel (lista o radio)
+    - OK autores que han muerto (lista o radio)
+    - OK Buscar autores por Pais (input txt)
 
 
     Agregar autores

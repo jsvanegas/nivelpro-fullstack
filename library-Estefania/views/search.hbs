@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Autores</title>
+</head>
+
+<body>
+
+    <h1>Buscar Autores</h1>
+    <div>
+        <form action="/search-authors" method="POST">
+            <div>
+                <label for="txt-name">Nombre</label>
+                <input type="text" name="name" id="txt-name">
+            </div>
+            <div>
+                <label for="txt-nobel">¿Obtuvo un nobel?</label>
+                <select name="nobel" id="txt-nobel">
+                    <option value="true">Si</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div>
+                <label for="txt-dead">¿Ya falleció?</label>
+                <select name="dead" id="txt-dead">
+                    <option value="true">Si</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div>
+                <label for="txt-country">Vivió en</label>
+                <input type="text" name="country" id="txt-country">
+            </div>
+            <input type="submit" value="Consultar">
+        </form>
+    </div>
+
+
+    <h2>Autores</h2>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th id="thName">Nombre</th>
+                    <th id="thBorn">Nacimiento</th>
+                    <th id="thDied">Muerte</th>
+                    <th id="thNobel">Año de Nobel</th>
+                    <th id="thCountries">Paises</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each authors}}
+                <tr>
+                    <td headers="thName">
+                        <a href="/authors/{{this._id}}">{{this.name}}</a>
+                    </td>
+                    <td headers="thBorn">{{this.born}}</td>
+                    <td headers="thDied">{{this.died}}</td>
+                    <td headers="thNobel">{{this.nobel}}</td>
+                    <td headers="thCountries">{{this.countries}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+
+</body>
+
+</html>
