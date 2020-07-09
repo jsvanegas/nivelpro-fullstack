@@ -1,0 +1,68 @@
+<div>
+
+
+  <div>
+    <form action="/search-authors" method="POST">
+
+      <div>
+        <label for="txt-title">Nombre Autor:</label>
+        <input type="text" id="txt-title" name="author" value="{{state.author}}" />
+      </div>
+
+      <div>
+        <div>
+          <label>
+            <input type="radio" name="nobel" value="1" {{setRadioState 1 state.nobel}} />
+            Tiene Nobel
+          </label>
+
+          <label>
+            <input type="radio" name="nobel" value="0" {{setRadioState 0 state.nobel}} />
+            Sin Nobel
+          </label>
+
+          <label>
+            <input type="radio" name="nobel" value="-1" {{setRadioState -1 state.nobel}} />
+            Todos
+          </label>
+        </div>
+
+      </div>
+      <div>
+        <div>
+          <label>
+            <input type="radio" name="dead" value="1" {{setRadioState 1 state.dead}} />
+            Esta muerto
+          </label>
+
+          <label>
+            <input type="radio" name="dead" value="0" {{setRadioState 0 state.dead}} />
+            Vivos
+          </label>
+
+          <label>
+            <input type="radio" name="dead" value="-1" {{setRadioState -1 state.dead}} />
+            Todos
+          </label>
+        </div>
+
+      </div>
+
+
+      <div>
+        <label for="txt-country">País:</label>
+        <input type="text" id="txt-country" name="country" value="{{state.country}}" />
+      </div>
+
+      <input type="submit" value="Buscar" />
+
+    </form>
+  </div>
+
+  <div>
+    {{#each authors}}
+    <div>{{this.name}}</div>
+    {{/each}}
+
+  </div>
+</div>
