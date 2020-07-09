@@ -8,17 +8,19 @@
 </head>
 
 <body>
+    <div>
 
     <h1>Buscar Autores</h1>
     <div>
         <form action="/search-authors" method="POST">
             <div>
                 <label for="txt-name">Nombre</label>
-                <input type="text" name="name" id="txt-name">
+                <input type="text" name="name" id="txt-name" value= {{state.name}}>
             </div>
             <div>
                 <label for="txt-nobel">¿Obtuvo un nobel?</label>
                 <select name="nobel" id="txt-nobel">
+                    <option value="todos">Todos</option>
                     <option value="true">Si</option>
                     <option value="false">No</option>
                 </select>
@@ -26,6 +28,7 @@
             <div>
                 <label for="txt-dead">¿Ya falleció?</label>
                 <select name="dead" id="txt-dead">
+                    <option value="todos">Todos</option>
                     <option value="true">Si</option>
                     <option value="false">No</option>
                 </select>
@@ -67,7 +70,7 @@
             </tbody>
         </table>
     </div>
-
+</div>
 
 </body>
 

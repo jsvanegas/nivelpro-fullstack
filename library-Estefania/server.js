@@ -15,7 +15,7 @@ app.get('/index', renderIndex);
 app.get('/authors/:author_id', renderAuthor);
 app.post('/add-book', addBook);
 app.get('/remove', removeBook);
-app.get('/search', search);
+app.get('/search', renderSearch);
 app.post('/search-authors', searchAuthors);
 
 var libDB = null;
@@ -65,7 +65,7 @@ function renderAuthor(req, res) {
     });
 }
 
-function addBook(req, res){
+async function addBook(req, res){
     const { title, year, lang, tags, pages, author } = req.body;
     const newBook = 
         {
@@ -79,14 +79,12 @@ function addBook(req, res){
         const query = { _id: new ObjectId(author) };
         const update = { $addToSet: {books: newBook}};
 
-        libDb.collection('authors').updateOne(query, update, (err, result) => {
-            if(err){
-                handleError(reult, err);
-                return;
-            }
-            res.status(200).redirect('/authors/'+author);
-        });
-        
+        try{
+        const result = await libDb.collection('authors').updateOne(query, update);
+        res.status(200).redirect('/authors/'+author);
+        }catch(err){
+            return handleError(res, err);
+        }
     }
 
     function removeBook(req, res) {
@@ -105,64 +103,54 @@ function addBook(req, res){
 
     }
 
-function search(req, res) {
+function renderSearch(req, res) {
     res.render('search');
 }
 
-function searchAuthors(req, res) {
+async function searchAuthors(req, res) {
     //console.log("Search Authors");
     const {name, nobel, dead, country } = req.body;
     //console.log("nobel: " + nobel);
-    let isNobel = null;
-    let isDied = null;
+
+    let query = {};
+
+    if(name && name.trim().length >0) {
+        query.name = {$regex: new RegExp(name, 'i')};
+    }
 
     if(nobel=="true"){
-        isNobel=true;
+        query.nobel = {$exists: true};
     }
+
     if(nobel=="false"){
-        isNobel=false;
+        query.nobel = {$exists: false};
     }
+
     if(dead=="true"){
-        isDied=true;
+        query.died = {$exists: true};
     }
+
     if(dead=="false"){
-        isDied=false;
+        query.died = {$exists: false};
     }
 
-
-    const query = {
-        $and: [
-            // /.*Ern.*/i
-            {"name": new RegExp(name, 'i')},
-            {"nobel": {$exists: isNobel}},
-            {"died": {$exists: isDied}},
-            {"countries": {$in: [ new RegExp(country, 'i') ]}}
-        ]
-    };
+    if(country && country.trim().length >0) {
+        query.countries = { $in: [ new RegExp(country, 'i') ]};
+    }
 
     const projection = {
         projection: {name: 1, born: 1, died: 1, nobel: 1, countries: 1}
     };
 
-    libDb.collection('authors').find(query,projection, (err, cursor) => {
-        // TODO: Proyección de datos en la consulta
-
-        if(err){
-            handleError(res, err);
-            return;
-        }
-        cursor.toArray((parseError, result) => {
-            if(err){
-                console.log(parseError);
-               handleError(result, parseError);
-                return;
-            }
-            res.render('search', {authors: result});
+    try{
+        const cursor = await libDb.collection('authors').find(query,projection);
     
-        });
+        const data = await cursor.toArray();
 
-
-    });
+        res.render('search', {authors: data});
+    }catch (err){
+        return handleError(res,err);
+    }
 
 }
 
