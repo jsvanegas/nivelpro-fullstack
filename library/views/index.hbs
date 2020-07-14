@@ -1,12 +1,42 @@
-<div>
+<div class="container">
   <h1>Lista de Autores</h1>
+  <div class="form-group">
+    <input type="text" class="form-control txt-author" placeholder="Buscar Autores" />
+  </div>
   <div>
-    <ul>
+    <ul class="list-group">
       {{#each authors}}
-      <li>
+      <li class="list-group-item d-flex justify-content-between">
         <a href="/author/{{this._id}}">{{this.name}}</a>
+        <span class="badge badge-info badge-pill">{{this.numBooks}}</span>
       </li>
       {{/each}}
     </ul>
   </div>
 </div>
+
+<script>
+
+  (function () {
+
+    var list = document.querySelector('.list-group');
+
+    function onKeyUp(event) {
+      var current = event.currentTarget.value.toUpperCase();
+      for (var i = 0; i < list.childElementCount; i++) {
+        var currentItem = list.children.item(i);
+        if (currentItem.querySelector('a').innerText.toUpperCase().indexOf(current) > -1) {
+          currentItem.classList.add('d-flex');
+          continue;
+        }
+        currentItem.style.display = 'none';
+        currentItem.classList.remove('d-flex');
+      }
+    }
+
+    document.querySelector('.txt-author')
+      .addEventListener('keyup', onKeyUp);
+
+  })();
+
+</script>
