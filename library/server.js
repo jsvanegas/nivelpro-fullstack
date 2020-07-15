@@ -60,15 +60,37 @@ app.post('/search-authors', searchAuthors);
 app.post('/books', searchBooks);
 app.get('/books', renderBooks);
 
-function renderBooks(req, res) {
-  res.render('books');
+async function renderBooks(req, res) {
+  const pipeline = [
+    { $unwind: '$books' },
+    { $replaceRoot: { newRoot: { $mergeObjects: [ { _id: '$_id', author: '$name' } , '$books' ]  } } },
+    { $sort: { title: 1 } }
+  ];
+  const config = { collation: { locale: 'es' } };
+
+  try {
+    const books = await libDb.collection('authors').aggregate(pipeline, config).toArray();
+    console.log(books);
+    res.render('books', { books: books });
+  } catch (err) {
+    handleError(res, err);
+  }
 };
 
 async function searchBooks(req, res) {
   const { query } = req.body;
   const queryExp = new RegExp(query, 'i');
+
+  const pipeline = [
+    { $unwind: '$books' },
+    { $match: { $or: [ { 'books.title': queryExp}, { 'books.tags': queryExp } ] } },
+    { $replaceRoot: { newRoot: { $mergeObjects: [ { _id: '$_id', author: '$name' } , '$books' ]  } } },
+    { $sort: { title: 1 } }
+  ];
+  const config = { collation: { locale: 'es' } };
+
   try {
-    const books = await libDb.collection('authors').find({ $or: [{ 'books.title': queryExp }, { 'books.tags': queryExp }] }).toArray();
+    const books = await libDb.collection('authors').aggregate(pipeline, config).toArray();
     console.log(books);
     res.render('books', { books: books });
   } catch (err) {
