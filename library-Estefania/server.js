@@ -7,8 +7,27 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true, encode: true}));
 app.use(bodyParser.json());
 
-app.engine('hbs', exphbs({extname: 'hbs', defaultLayout: null }));
-app.set('view engine', 'hbs');
+// Configurar Handlebars y sus helpers
+const hbs = exphbs.create({
+    extname: 'hbs',
+    helpers: {
+      setRadioState: (value, current) => ((value == current) ? 'checked' : '')
+    }
+  });
+  
+  
+  app.engine('hbs', hbs.engine);
+  app.set('view engine', 'hbs');
+
+  //Middlewares
+  // Next: la siguiente función en el pipeline de ejecución
+  app.use((req, res, next) => {
+     
+    // configurar un valor en el objeto response, para acceder la url actual
+    res.locals.currentPage = req.url;
+    next(); // Continúa la ejecución express
+    
+  });
 
 //Routes
 app.get('/index', renderIndex);
@@ -147,7 +166,8 @@ async function searchAuthors(req, res) {
     
         const data = await cursor.toArray();
 
-        res.render('search', {authors: data});
+        res.render('search', {authors: data,
+            state: { author, nobel, dead, country }});
     }catch (err){
         return handleError(res,err);
     }
