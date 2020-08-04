@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Juan",
+      "email": "juan@gmail.com",
+      "age": 31,
+      "country": "Colombia",
+      "companyId": "2"
+    },
+    {
+      "id": "2",
+      "name": "Stefanny",
+      "email": "stefanny@gmail.com",
+      "age": 31,
+      "country": "Colombia",
+      "companyId": "1"
+    },
+    {
+      "id": "3",
+      "name": "Jeison",
+      "email": "jeison@gmail.com",
+      "age": 31,
+      "country": "Colombia",
+      "companyId": "1"
+    },
+    {
+      "id": "4",
+      "name": "Eliana",
+      "email": "eliana@gmail.com",
+      "age": 31,
+      "country": "Colombia",
+      "companyId": "1"
+    },
+    {
+      "id": "5",
+      "name": "Estefania",
+      "email": "estefania@gmail.com",
+      "age": 31,
+      "country": "Colombia",
+      "companyId": "1"
+    }
+  ],
+  "companies": [
+    {
+      "id": "1",
+      "name": "Cadena"
+    },
+    {
+      "id": "2",
+      "name": "NivelPRO"
+    }
+  ]
+}

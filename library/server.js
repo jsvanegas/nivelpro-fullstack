@@ -17,7 +17,8 @@ app.use(bodyParser.json());
 const hbs = exphbs.create({
   extname: 'hbs',
   helpers: {
-    setRadioState: (value, current) => ((value == current) ? 'checked' : '')
+    setRadioState: (value, current) => ((value == current) ? 'checked' : ''),
+    checkAndReturn: (value, current, result, defaultValue = '') => ((value == current) ? result : defaultValue)
   }
 });
 
@@ -26,6 +27,26 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
 var libDb = null;
+
+// Middlewares
+
+// next: la siguiente función en el pipeline de ejecución
+app.use((req, res, next) => {
+  // configurar un valor en el objeto response, para acceder la URL actual
+  res.locals.currentPage = req.url;
+  next(); // continue ejecutando express
+});
+
+
+// app.use((req, res, next) => {
+//   if (!user || !user.permisos) {
+//     console.log('Usuario X esta intentando acceder a pagina');
+//     res.redirect(401, '/login');
+//   }
+// });
+
+// Middlewares
+
 
 // Routes
 app.get('/index', renderIndex);
@@ -36,19 +57,86 @@ app.post('/add-book', addBook);
 app.get('/authors', renderSearchAuthors);
 app.post('/search-authors', searchAuthors);
 
+app.post('/books', searchBooks);
+app.get('/books', renderBooks);
+
+async function renderBooks(req, res) {
+  const pipeline = [
+    { $unwind: '$books' },
+    { $replaceRoot: { newRoot: { $mergeObjects: [ { _id: '$_id', author: '$name' } , '$books' ]  } } },
+    { $sort: { title: 1 } }
+  ];
+  const config = { collation: { locale: 'es' } };
+
+  try {
+    const books = await libDb.collection('authors').aggregate(pipeline, config).toArray();
+    console.log(books);
+    res.render('books', { books: books });
+  } catch (err) {
+    handleError(res, err);
+  }
+};
+
+async function searchBooks(req, res) {
+  const { query } = req.body;
+  const queryExp = new RegExp(query, 'i');
+
+  const pipeline = [
+    { $unwind: '$books' },
+    { $match: { $or: [ { 'books.title': queryExp}, { 'books.tags': queryExp } ] } },
+    { $replaceRoot: { newRoot: { $mergeObjects: [ { _id: '$_id', author: '$name' } , '$books' ]  } } },
+    { $sort: { title: 1 } }
+  ];
+  const config = { collation: { locale: 'es' } };
+
+  try {
+    const books = await libDb.collection('authors').aggregate(pipeline, config).toArray();
+    console.log(books);
+    res.render('books', { books: books });
+  } catch (err) {
+    handleError(res, err);
+  }
+}
+
+
+
 function renderSearchAuthors(req, res) {
   res.render('search');
 }
 
-function renderIndex(req, res) {
-  libDb.collection('authors').find({}, { projection: { name: 1 } }, (err, cursor) => {
-    if (err) return handleError(res, err);
-    cursor.toArray((err, data) => {
-      console.log(data);
-      res.render('index', { authors: data });
-    });
-  });
+// function renderIndex(req, res) {
+//   libDb.collection('authors').find({}, { projection: { name: 1 } }, (err, cursor) => {
+//     if (err) return handleError(res, err);
+//     cursor.toArray((err, data) => {
+//       console.log(data);
+//       res.render('index', { authors: data });
+//     });
+//   });
+// }
+
+async function renderIndex(req, res) {
+  const pipeline = [
+    {
+      $project: {
+        name: 1,
+        numBooks: {
+          $cond: { 'if': { $isArray: '$books' }, 'then': { $size: '$books' }, 'else': 0 }
+        }
+      }
+    },
+    { $sort: { name: 1 } }
+  ];
+  const config = { collation: { locale: 'es' } };
+  try {
+    const authors = await libDb.collection('authors').aggregate(pipeline, config).toArray();
+    console.log('Autores consultados: ', authors.length);
+    res.render('index', { authors: authors });
+  } catch (err) {
+    return handleError(res, err);
+  }
 }
+
+
 
 function renderAuthor(req, res) {
   const authorId = req.params.author_id;

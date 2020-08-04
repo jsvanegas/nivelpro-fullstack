@@ -1,0 +1,33 @@
+<div>
+    <div>
+        <h1>Búsqueda de Libros</h1>
+    </div>
+    <div class="container mt-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Libro</th>
+                    <th>Autor</th>
+                    <th>Paginas</th>
+                    <th>Tags</th>
+                    <th>Publicacion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each books}}
+                <tr>
+                    <td>{{this.title}}</td>
+                    <td>{{this.author}}</td>
+                    <td>{{this.pages}}</td>
+                    <td>{{this.tags}}</td>
+                    <td>{{this.publicationYear}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td class="text-center" colspan="5">No hay resultados</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
