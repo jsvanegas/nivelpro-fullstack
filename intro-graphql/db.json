@@ -3,10 +3,14 @@
     {
       "id": "1",
       "name": "Juan",
-      "email": "juan@gmail.com",
-      "age": 31,
+      "email": "sebastian@gmail.com",
+      "age": 30,
       "country": "Colombia",
-      "companyId": "2"
+      "companyId": "2",
+      "friends": [
+        "2",
+        "3"
+      ]
     },
     {
       "id": "2",
