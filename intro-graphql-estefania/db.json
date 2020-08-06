@@ -1,49 +1,58 @@
 {
     "users": [
-        {
-            "id": "1",
-            "name":  "Juan", 
-            "email": "juan@gmail.com",
-            "age": "30",
-            "companyId": "2"
-        },
-        {
-            "id": "2",
-            "name":  "Eliana", 
-            "email": "eliana@gmail.com",
-            "age": "25",
-            "companyId": "1"
-        },
-        {
-            "id": "3",
-            "name":  "Stefanny", 
-            "email": "stefanny@gmail.com",
-            "age": "31",
-            "companyId": "1"
-        },
-        {
-            "id": "4",
-            "name":  "Jeison", 
-            "email": "jeison@gmail.com",
-            "age": "24",
-            "companyId": "1"
-        },
-        {
-            "id": "5",
-            "name":  "Estefania", 
-            "email": "estefania@gmail.com",
-            "age": "26",
-            "companyId": "1"
-        }
+      {
+        "id": "1",
+        "name": "Juan",
+        "email": "sebastian@gmail.com",
+        "age": 30,
+        "country": "Colombia",
+        "companyId": "2",
+        "friends": [
+          "2",
+          "3"
+        ]
+      },
+      {
+        "id": "2",
+        "name": "Stefanny",
+        "email": "stefanny@gmail.com",
+        "age": 31,
+        "country": "Colombia",
+        "companyId": "1"
+      },
+      {
+        "id": "3",
+        "name": "Jeison",
+        "email": "jeison@gmail.com",
+        "age": 31,
+        "country": "Colombia",
+        "companyId": "1"
+      },
+      {
+        "id": "4",
+        "name": "Eliana",
+        "email": "eliana@gmail.com",
+        "age": 31,
+        "country": "Colombia",
+        "companyId": "1"
+      },
+      {
+        "id": "5",
+        "name": "Estefania",
+        "email": "estefania@gmail.com",
+        "age": 31,
+        "country": "Colombia",
+        "companyId": "1"
+      }
     ],
     "companies": [
-        {
-            "id": "1",
-            "name": "Cadena"
-        },
-        {
-            "id": "2",
-            "name": "nivelPRO"
-        }
+      {
+        "id": "1",
+        "name": "Cadena"
+      },
+      {
+        "id": "2",
+        "name": "NivelPRO"
+      }
     ]
-}
+  }
